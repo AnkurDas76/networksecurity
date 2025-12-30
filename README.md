@@ -22,7 +22,7 @@ Phishing websites mimic trusted sites to steal sensitive information. As phishin
 - **Features**: 30 engineered features from URLs and page content (URL length, IP presence, "@" symbols, SSL status, iframes, etc.)
 
 ## 🛠 Project Structure
-```bash
+```
 networksecurity/
 ├── app.py                     # FastAPI application
 ├── final_model/               # Trained model & preprocessor
@@ -35,6 +35,7 @@ networksecurity/
 ├── data_schema/               # Data validation schema
 ├── requirements.txt           # Dependencies
 └── README.md                  # Project documentation
+```
 
 ## ⚙️ Machine Learning Pipeline
 
