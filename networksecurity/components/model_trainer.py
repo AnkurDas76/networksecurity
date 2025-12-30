@@ -24,6 +24,10 @@ from sklearn.ensemble import (
     RandomForestClassifier,
 )
 import mlflow
+import dagshub
+dagshub.init(repo_owner='AnkurDas76', repo_name='networksecurity', mlflow=True)
+
+
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig, data_transformation_artifact:DataTransformationArtifact):
         try:
@@ -43,6 +47,7 @@ class ModelTrainer:
             mlflow.log_metric("precision",precision_score)
             mlflow.log_metric("recall_score", recall_score)
             mlflow.sklearn.log_model(best_model,"model")
+           
 
 
         
@@ -64,20 +69,20 @@ class ModelTrainer:
                 # 'criterion':['gini', 'entropy', 'log_loss'],
                 
                 # 'max_features':['sqrt','log2',None],
-                'n_estimators': [8,16,32,128,256]
+                'n_estimators': [8,16,32,64,128,256]
             },
             "Gradient Boosting":{
                 # 'loss':['log_loss', 'exponential'],
-                'learning_rate':[.1,.01,.001],
+                'learning_rate':[.1,.01,0.5,.001],
                 'subsample':[0.6,0.7,0.8,0.9],
                 # 'criterion':['squared_error', 'friedman_mse'],
                 # 'max_features':['auto','sqrt','log2'],
-                'n_estimators': [8,16,32,128,256]
+                'n_estimators': [8,16,32,64,128,256]
             },
             "Logistic Regression":{},
             "AdaBoost":{
                 'learning_rate':[.1,.01,0.5,.001],
-                'n_estimators': [8,16,32,128,256]
+                'n_estimators': [8,16,32,64,128,256]
             }
             
         }
@@ -105,6 +110,7 @@ class ModelTrainer:
         
         Network_Model=NetworkModel(preprocessor=preprocessor,model=best_model)
         save_object(self.model_trainer_config.trained_model_file_path,obj=NetworkModel)
+        save_object("final_model/model.pkl",best_model)
 
         ## Model Trainer Artifact
         model_trainer_artifact=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,
