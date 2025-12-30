@@ -66,7 +66,7 @@ uvicorn app:app --reload
 Train: Visit "http://127.0.0.1:8000/train"
 Predict: Use /docs → upload a CSV with the same 30 features → see results instantly
 
-
+```bash
 🛠 Tech Stack
 
 Python 3.x
